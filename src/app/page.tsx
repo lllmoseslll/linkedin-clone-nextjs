@@ -1,3 +1,4 @@
+import PostForm from "@/components/PostForm";
 import UserInformation from "@/components/UserInformation";
 
 export default function Home() {

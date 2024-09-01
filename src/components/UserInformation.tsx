@@ -1,6 +1,7 @@
 import { currentUser } from "@clerk/nextjs/server";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
+import AvatorComponent from "./AvatorComponent";
 
 async function UserInformation() {
   const user = await currentUser();
@@ -10,17 +11,7 @@ async function UserInformation() {
 
   return (
     <div className="flex flex-col justify-center items-center bg-white mr-6 rounded-lg border py-4">
-      <Avatar>
-        {user?.id ? (
-          <AvatarImage src={imageUrl} />
-        ) : (
-          <AvatarImage src={"https://github.com/shadcn.png"} />
-        )}
-        <AvatarFallback>
-          {user?.firstName?.charAt(0)}
-          {user?.lastName?.charAt(0)}
-        </AvatarFallback>
-      </Avatar>
+      <AvatorComponent />
 
       <SignedIn>
         <div className="text-center">
@@ -44,15 +35,11 @@ async function UserInformation() {
 
       <div className="flex justify-between w-full px-4 text-sm">
         <p className="font-semibold text-gray-400 ">Posts</p>
-              <p className="text-blue-400">
-                  {/* {userPosts.length} */}0
-              </p>
+        <p className="text-blue-400">{/* {userPosts.length} */}0</p>
       </div>
       <div className="flex justify-between w-full px-4 text-sm">
         <p className="font-semibold text-gray-400 ">Comments</p>
-              <p className="text-blue-400">
-                  {/* {userComments.length} */}0
-              </p>
+        <p className="text-blue-400">{/* {userComments.length} */}0</p>
       </div>
     </div>
   );
