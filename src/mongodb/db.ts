@@ -6,7 +6,7 @@ if (!connectionString) {
   throw new Error("connectionString is not valid");
 }
 
-const connectDB = async () => {
+export const connectDB = async () => {
   if (mongoose.connection?.readyState >= 1) {
     return;
     }
