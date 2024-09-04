@@ -4,11 +4,14 @@ import { Divide, ImageIcon, XIcon } from "lucide-react";
 import AvatorComponent from "./AvatorComponent";
 import { Button } from "./ui/button";
 import { useRef, useState } from "react";
+import createPostAction from "@/actions/createPostAction";
 
 function PostForm() {
   const ref = useRef<HTMLFormElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [preview, setPreview] = useState<string | null>(null);
+
+  
   const handlePostAction = async (formData: FormData) => {
     const formDataCopy = formData;
     ref.current?.reset();
