@@ -18,6 +18,10 @@ export default async function createCommentAction(
   if (!commentInput) throw new Error("comment input not provided");
   if (!user?.id) throw new Error("user not authenticated");
 
+  if (typeof commentInput !== "string") {
+    throw new Error("Comment input must be a string");
+  }
+
   const userDB: IUser = {
     userId: user.id,
     userImage: user.imageUrl,
