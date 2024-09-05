@@ -9,6 +9,7 @@ import { Trash, Trash2Icon } from "lucide-react";
 import deletePostAction from "@/actions/deletePostAction";
 import Image from "next/image";
 import PostOptions from "./PostOptions";
+import { toast } from "sonner";
 
 function Post({ post }: { post: IPostDocument }) {
   const { user } = useUser();
@@ -54,6 +55,11 @@ function Post({ post }: { post: IPostDocument }) {
                 const promise = deletePostAction(post._id);
 
                 //Toast
+                toast.promise(promise, {
+                  loading: "deleting post...",
+                  success: "deleted post ",
+                  error: "failed to delete post"
+                })
               }}
             >
               <Trash className="text-red-700 hover:text-white" />

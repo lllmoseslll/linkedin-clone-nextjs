@@ -5,13 +5,13 @@ import AvatorComponent from "./AvatorComponent";
 import { Button } from "./ui/button";
 import { useRef, useState } from "react";
 import createPostAction from "@/actions/createPostAction";
+import { toast } from "sonner";
 
 function PostForm() {
   const ref = useRef<HTMLFormElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [preview, setPreview] = useState<string | null>(null);
 
-  
   const handlePostAction = async (formData: FormData) => {
     const formDataCopy = formData;
     ref.current?.reset();
@@ -41,8 +41,14 @@ function PostForm() {
         ref={ref}
         action={(formData) => {
           // handle form submittion
-          handlePostAction(formData);
+         const promise = handlePostAction(formData);
           // toast notificaitons
+
+          toast.promise(promise, {
+            loading: "creating post...",
+            success: "created post",
+            error: "error creating post",
+          });
         }}
         className="p-3"
       >
@@ -75,7 +81,11 @@ function PostForm() {
         )}
 
         <div className="flex justify-end mt-2 space-x-2">
-          <Button type="button" onClick={() => fileInputRef.current?.click()}>
+          <Button
+            variant={"outline"}
+            type="button"
+            onClick={() => fileInputRef.current?.click()}
+          >
             <ImageIcon className="mr-2" size={16} color="currentColor" />
             {preview ? "Change" : "Add"} Image
           </Button>
