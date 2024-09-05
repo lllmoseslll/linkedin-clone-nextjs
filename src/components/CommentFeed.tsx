@@ -4,7 +4,7 @@ import { useUser } from "@clerk/nextjs";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import ReactTimeago from "react-timeago";
 
-function commentFeed({ post }: { post: IPostDocument }) {
+function CommentFeed({ post }: { post: IPostDocument }) {
   const { user } = useUser();
 
   const isAuthor = user?.id === post.user.userId;
@@ -21,7 +21,7 @@ function commentFeed({ post }: { post: IPostDocument }) {
           </Avatar>
           <div className="bg-gray-100 px-4 py-2 rounded-md w-full sm:w-auto md:min-w-[300px]">
             <div className="flex justify-between">
-              <div >
+              <div>
                 <p className="font-semibold">
                   {comment.user.firstName} {comment.user.lastName}
                 </p>
@@ -38,4 +38,4 @@ function commentFeed({ post }: { post: IPostDocument }) {
   );
 }
 
-export default commentFeed;
+export default CommentFeed;
