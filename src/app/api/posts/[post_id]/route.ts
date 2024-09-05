@@ -13,48 +13,47 @@ export async function GET(
     const post = await Post.findById(params.post_id);
 
     if (!post) {
-      return NextResponse.json(
-        { error: "No post found" },
-        {
-          status: 404,
-        }
-      );
+      return NextResponse.json({ error: "post not found" }, { status: 404 });
     }
-    const likes = post.likes;
-    return NextResponse.json(likes);
+
+    return NextResponse.json(post);
   } catch (error) {
     return NextResponse.json(
-      { error: "an error while fectching likes" },
+      { error: "an error occurred while fetching post" },
       { status: 500 }
     );
   }
 }
 
-export interface LikePostRequestBody {
+export interface DeletePostRequestbody {
   userId: string;
 }
 
-export async function POST(
+export async function DELETE(
   request: Request,
   { params }: { params: { post_id: string } }
 ) {
   auth().protect();
-
   await connectDB();
 
-  const { userId }: LikePostRequestBody = await request.json();
+  const { userId }: DeletePostRequestbody = await request.json();
 
   try {
     const post = await Post.findById(params.post_id);
-    if (!post) {
-      return NextResponse.json({ error: "post not found" }, { status: 404 });
-    }
-    await post.likePost(userId);
 
-    return NextResponse.json({ message: "post successfully liked" });
+    if (!post) {
+      return NextResponse.json({ error: "Post not found " }, { status: 404 });
+    }
+
+    if (post.user.userId !== userId) {
+      throw new Error("post doesnt not belong to the user");
+    }
+    await post.removePost();
+
+    return NextResponse.json({ message: "Post deleted successfully" });
   } catch (error) {
     return NextResponse.json(
-      { error: "an error occurred while liking the post" },
+      { error: "an error occurred while deleting post" },
       { status: 500 }
     );
   }

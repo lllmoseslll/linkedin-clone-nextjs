@@ -1,8 +1,8 @@
 import { connectDB } from "@/mongodb/db";
 import { Post } from "@/mongodb/models/post";
 import { NextResponse } from "next/server";
-import { IUser } from "../../../../../types/user";
 import { IComment, ICommentBase } from "@/mongodb/models/comment";
+import { IUser } from "../../../../../../types/user";
 
 export async function GET(
   request: Request,
