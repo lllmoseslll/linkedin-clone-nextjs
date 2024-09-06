@@ -131,7 +131,7 @@ function PostOptions({ post }: { post: IPostDocument }) {
       {isCommentsOpen && (
         <div className="p-4">
           <SignedIn>
-          <CommentForm postId={post._id} />
+            <CommentForm postId={String(post._id)} />
           </SignedIn>
           <CommentFeed post={post} />
         </div>

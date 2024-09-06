@@ -52,7 +52,7 @@ function Post({ post }: { post: IPostDocument }) {
               variant={"outline"}
               className="bg-white hover:bg-red-700 px-1"
               onClick={() => {
-                const promise = deletePostAction(post._id);
+                const promise = deletePostAction(String(post._id));
 
                 //Toast
                 toast.promise(promise, {
